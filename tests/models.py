@@ -1829,11 +1829,25 @@ class TaskInstanceTest(unittest.TestCase):
         op4 = DummyOperator(task_id='test_op_4', owner='test')
         op5 = DummyOperator(task_id='test_op_5', owner='test')
 
+        op6 = DummyOperator(task_id='test_op_6', owner='test')
+        op7 = DummyOperator(task_id='test_op_7', owner='test')
+        op8 = DummyOperator(task_id='test_op_8', owner='test')
+        op9 = DummyOperator(task_id='test_op_9', owner='test')
+        opA = DummyOperator(task_id='test_op_A', owner='test')
+        opB = DummyOperator(task_id='test_op_B', owner='test')
+        opC = DummyOperator(task_id='test_op_C', owner='test')
+        opD = DummyOperator(task_id='test_op_D', owner='test')
+        opE = DummyOperator(task_id='test_op_E', owner='test')
+        opF = DummyOperator(task_id='test_op_F', owner='test')
+        opG = DummyOperator(task_id='test_op_G', owner='test')
+
         # can't compose operators without dags
         with self.assertRaises(AirflowException):
             op1 >> op2
 
         dag >> op1 >> op2 << op3
+
+        dag >> (op6, op7) >> op8 << (op9, opA << (opB, opC, opD), opE >> opF) >> opG
 
         # make sure dag assignment carries through
         # using __rrshift__

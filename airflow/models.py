@@ -2645,12 +2645,16 @@ class BaseOperator(LoggingMixin):
         Implements Self >> Other == self.set_downstream(other)
 
         If "Other" is a DAG, the DAG is assigned to the Operator.
+        If "Other" is a Distributive (i.e. a tuple or list), iterate over it
         """
         if isinstance(other, DAG):
             # if this dag is already assigned, do nothing
             # otherwise, do normal dag assignment
             if not (self.has_dag() and self.dag is other):
                 self.dag = other
+        elif isinstance(other, tuple) or isinstance(other, list):
+            for item in other:
+                self >> item
         else:
             self.set_downstream(other)
         return other
@@ -2660,12 +2664,16 @@ class BaseOperator(LoggingMixin):
         Implements Self << Other == self.set_upstream(other)
 
         If "Other" is a DAG, the DAG is assigned to the Operator.
+        If "Other" is a Distributive (i.e. a tuple or list), iterate over it
         """
         if isinstance(other, DAG):
             # if this dag is already assigned, do nothing
             # otherwise, do normal dag assignment
             if not (self.has_dag() and self.dag is other):
                 self.dag = other
+        elif isinstance(other, tuple) or isinstance(other, list):
+            for item in other:
+                self << item
         else:
             self.set_upstream(other)
         return other

@@ -4,7 +4,7 @@ all: rm run
 
 run: buildit
 	docker run -it --rm -v`pwd`:`pwd` -w`pwd` \
-	--name $(TAG) $(TAG) ./build.sh
+	--name $(TAG) $(TAG) tox
 
 buildit:
 	docker build --tag $(TAG) .

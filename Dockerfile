@@ -4,10 +4,14 @@ RUN apt-get -y update\
  && apt-get -y upgrade\
  && apt-get -y install apt-utils
 
+#RUN apt-get -y install build-essential emacs-nox curl wget tree telnet\
+#  python-virtualenv python-tox python3.5 libmysqlclient-dev python-dev \
+#  python3-dev libkrb5-dev krb5-user libsasl2-dev default-jre sudo \
+#  openssl
+
 RUN apt-get -y install build-essential emacs-nox curl wget tree telnet\
   python-virtualenv python-tox python3.5 libmysqlclient-dev python-dev \
-  python3-dev libkrb5-dev krb5-user libsasl2-dev default-jre sudo \
-  openssl-server openssl-client
+  python3-dev libkrb5-dev libsasl2-dev default-jre sudo openssl ssh
 
 RUN echo 'PS1=\>\>' >> /root/.profile\
  && echo 'PS2=\ \>' >> /root/.profile
